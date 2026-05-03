@@ -13,11 +13,8 @@ A Next.js App Router website for a home decor and clothing blog with affiliate l
 - Rich blog editor with headings, lists, quotes, alignment, images, internal links, external links, and affiliate links
 - SEO fields for posts
 - Supabase Postgres tables with RLS policies
-- Local image upload API that saves files to `public/uploads`
-
-## Important Image Note
-
-The upload route stores images in `public/uploads`, which is okay for local development or a traditional Node/VPS deployment. On Vercel/serverless hosting, runtime writes to the public folder are not persistent. For production on Vercel, use Supabase Storage, Cloudflare R2, or another object storage provider.
+- Supabase Storage image uploads for post covers, inline editor images, and website theme images
+- AdSense-friendly legal pages: Privacy Policy, Terms, Disclaimer, Affiliate Disclosure, and Cookie Policy
 
 ## Setup
 
@@ -44,6 +41,7 @@ Deployment checklist:
 - Run all migration SQL files listed below before launch.
 - Rotate any Supabase secret keys/passwords that were shared during setup.
 - Confirm `/sitemap.xml` and `/robots.txt` load on the live domain.
+- Review legal pages and replace any generic wording with your business details before submitting to AdSense.
 
 3. In Supabase, open SQL Editor and run:
 
@@ -86,6 +84,12 @@ To store newsletter subscriptions and contact inquiries, run:
 
 ```sql
 -- paste everything from supabase/messages-migration.sql
+```
+
+To store uploaded images in Supabase Storage, run:
+
+```sql
+-- paste everything from supabase/storage-migration.sql
 ```
 
 6. Start development:

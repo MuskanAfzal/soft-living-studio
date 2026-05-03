@@ -113,6 +113,47 @@ create policy "Admins manage subscriptions" on public.subscriptions for all usin
 drop policy if exists "Admins manage inquiries" on public.inquiries;
 create policy "Admins manage inquiries" on public.inquiries for all using (public.is_admin()) with check (public.is_admin());
 
+insert into storage.buckets (
+  id,
+  name,
+  public,
+  file_size_limit,
+  allowed_mime_types
+)
+values (
+  'website-images',
+  'website-images',
+  true,
+  5242880,
+  array['image/jpeg', 'image/png', 'image/webp']
+)
+on conflict (id) do update
+set
+  public = excluded.public,
+  file_size_limit = excluded.file_size_limit,
+  allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "Public read website images" on storage.objects;
+create policy "Public read website images"
+on storage.objects for select
+using (bucket_id = 'website-images');
+
+drop policy if exists "Admins upload website images" on storage.objects;
+create policy "Admins upload website images"
+on storage.objects for insert
+with check (bucket_id = 'website-images' and public.is_admin());
+
+drop policy if exists "Admins update website images" on storage.objects;
+create policy "Admins update website images"
+on storage.objects for update
+using (bucket_id = 'website-images' and public.is_admin())
+with check (bucket_id = 'website-images' and public.is_admin());
+
+drop policy if exists "Admins delete website images" on storage.objects;
+create policy "Admins delete website images"
+on storage.objects for delete
+using (bucket_id = 'website-images' and public.is_admin());
+
 insert into public.categories (name, slug, description)
 values
   ('Home Decor', 'home-decor', 'Room styling, cozy corners, and decor inspiration'),

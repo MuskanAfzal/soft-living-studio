@@ -40,6 +40,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.4
     },
+    {
+      url: absoluteUrl('/privacy-policy'),
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3
+    },
+    {
+      url: absoluteUrl('/terms-and-conditions'),
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3
+    },
+    {
+      url: absoluteUrl('/affiliate-disclosure'),
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3
+    },
+    {
+      url: absoluteUrl('/cookie-policy'),
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3
+    },
+    {
+      url: absoluteUrl('/disclaimer'),
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3
+    },
     ...(categories || []).map((category) => ({
       url: absoluteUrl(`/category/${category.slug}`),
       lastModified: category.created_at ? new Date(category.created_at) : now,

@@ -35,6 +35,11 @@ export function PublicFooter({ recentPosts, settings }: { recentPosts?: any[] | 
             <Link href="/blog">{settings.nav_blog_label}</Link>
             <Link href="/about">{settings.nav_about_label}</Link>
             <Link href="/contact">{settings.nav_contact_label}</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms-and-conditions">Terms</Link>
+            <Link href="/affiliate-disclosure">Affiliate Disclosure</Link>
+            <Link href="/cookie-policy">Cookie Policy</Link>
+            <Link href="/disclaimer">Disclaimer</Link>
           </div>
         </div>
       </div>
